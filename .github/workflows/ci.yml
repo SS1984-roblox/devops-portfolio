@@ -52,4 +52,4 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/ss1984-roblox/devops-demo:${{ github.sha }
+          docker push ghcr.io/ss1984-roblox/devops-demo:${{ github.sha }}
