@@ -9,6 +9,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -28,10 +32,24 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Run application tests
+        working-directory: application
+        run: |
+          pytest -v
+
       - name: Build Docker image
         run: |
-          docker build -t devops-demo:${{ github.sha }} ./application
+          docker build \
+            -t ghcr.io/ss1984-roblox/devops-demo:${{ github.sha }} \
+            ./application
 
-      - name: Verify Docker image
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
         run: |
-          docker images | grep devops-demo
+          docker push ghcr.io/ss1984-roblox/devops-demo:${{ github.sha }
