@@ -19,7 +19,7 @@ spec:
        spec:
          containers:
             - name: devops-demo 
-              image: ghcr.io/ss1984-roblox/devops-demo:3d6f92502d72d984276a121be0c1472730eb5e66
+              image: ghcr.io/ss1984-roblox/devops-demo:IMAGE_TAG
 
 
               imagePullPolicy: Always
